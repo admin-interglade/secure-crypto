@@ -1,5 +1,9 @@
 # @interglade/secure-crypto
 
+[![CI](https://github.com/admin-interglade/secure-crypto/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/admin-interglade/secure-crypto/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@interglade/secure-crypto)](https://www.npmjs.com/package/@interglade/secure-crypto)
+[![license](https://img.shields.io/npm/l/@interglade/secure-crypto)](./LICENSE)
+
 One encryption API for **React Native**, **the browser**, and **Node**. Same code, same bytes — data encrypted on a phone decrypts on your server, and vice versa.
 
 - 🔐 Authenticated encryption only — XChaCha20-Poly1305 (default) and AES-256-GCM
