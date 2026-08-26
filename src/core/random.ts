@@ -1,7 +1,7 @@
 /**
  * The single platform-dependent piece of the library.
  *
- * Web, Node 19+, Deno, Bun and Workers all expose `globalThis.crypto`.
+ * Web, Node 20+, Deno, Bun and Workers all expose `globalThis.crypto`.
  * React Native does not — the app must import `react-native-get-random-values`
  * once, at the top of index.js, which installs the same global.
  *

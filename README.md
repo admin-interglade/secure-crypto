@@ -59,7 +59,7 @@ After that the API is identical to web. If you skip this step you get a loud err
 
 ## Web and Node
 
-Nothing to configure. Works in Vite, Next.js, Create React App, Webpack, Web Workers, Deno, Bun, and Node 18+.
+Nothing to configure. Works in Vite, Next.js, Create React App, Webpack, Web Workers, Deno, Bun, and Node 20+.
 
 ```ts
 import { generateKey, encrypt, decrypt } from '@interglade/secure-crypto';

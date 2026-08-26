@@ -7,6 +7,11 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Changed
+- **Breaking:** minimum supported Node is now 20. Node 18 reached end of life in
+  April 2025 and does not expose `globalThis.crypto` without a flag, so it could
+  never generate keys without one.
+
 ### Added
 - `@interglade/secure-crypto/keystore` — platform-backed key storage: the iOS
   Keychain / Android Keystore via `react-native-keychain`, and a non-extractable
