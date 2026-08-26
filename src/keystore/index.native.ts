@@ -12,6 +12,7 @@
  */
 
 import { bytesToHex, hexToBytes } from '../core/encoding.js';
+import { loadNativeKeychain } from './keychain-module.js';
 import { randomBytes } from '../core/random.js';
 import {
   KeystoreError,
@@ -23,10 +24,6 @@ import {
 
 export const backend = 'react-native-keychain' as const;
 
-// Metro/CommonJS provides this. It is declared here because the package builds
-// with no ambient Node types, and the React Native export condition resolves to
-// the CJS bundle, where `require` is real.
-declare const require: (id: string) => unknown;
 
 interface KeychainCredentials {
   username: string;
@@ -54,22 +51,12 @@ const MISSING_MODULE =
 
 let cached: KeychainModule | null = null;
 
-/**
- * Test seam. `react-native-keychain` is a native module and cannot load under
- * Node, so the suite substitutes a fake that records what the library asks the
- * OS to do. Pass `null` to restore normal resolution.
- *
- * @internal Not part of the supported API; may change without a major version.
- */
-export function __setKeychainForTesting(mod: unknown): void {
-  cached = (mod as KeychainModule | null) ?? null;
-}
-
 function loadKeychain(): KeychainModule {
   if (cached) return cached;
   try {
-    // Resolved at call time so the import never breaks apps that skip the keystore.
-    const mod = require('react-native-keychain') as KeychainModule & { default?: KeychainModule };
+    // Resolved at call time so importing this module never breaks an app that
+    // does not use the keystore.
+    const mod = loadNativeKeychain() as KeychainModule & { default?: KeychainModule };
     cached = (mod.default ?? mod) as KeychainModule;
   } catch {
     throw new KeystoreError(MISSING_MODULE);

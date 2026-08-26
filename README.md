@@ -269,7 +269,7 @@ Pure JS, so throughput is roughly 10–40 MB/s depending on device — ample for
 
 ```bash
 npm install
-npm test          # 44 tests, incl. cross-platform known-answer vectors
+npm test          # 78 tests, incl. cross-platform known-answer vectors
 npm run typecheck
 npm run build
 ```

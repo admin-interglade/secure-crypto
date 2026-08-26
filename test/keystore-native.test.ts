@@ -11,7 +11,20 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { bytesToHex } from '../src/core/encoding.js';
 import { generateKey } from '../src/index.js';
-import * as keystore from '../src/keystore/index.native.js';
+
+/**
+ * Substitute the native-module resolver. `vi.mock` is hoisted above the imports,
+ * so the library under test only ever sees this version.
+ */
+vi.mock('../src/keystore/keychain-module.js', () => ({
+  loadNativeKeychain: () => {
+    if (!current) throw new Error("Cannot find module 'react-native-keychain'");
+    return current;
+  },
+}));
+
+/** The fake the mocked resolver hands back; null simulates a missing module. */
+let current: unknown = null;
 
 interface StoredEntry {
   username: string;
@@ -43,18 +56,19 @@ function createFakeKeychain(behaviour: { failGet?: boolean } = {}) {
 }
 
 /**
- * Point the module at a fake keychain. Passing null restores normal resolution,
- * which under Node fails exactly as it would in an app that forgot to install
- * the native module.
+ * Load a fresh copy of the module with `keychain` as the native module.
+ * Passing null simulates an app that never installed react-native-keychain.
+ *
+ * The reset matters: the library caches the resolved module after first use.
  */
 async function loadKeystore(keychain: unknown | null) {
-  keystore.__setKeychainForTesting(keychain);
-  return keystore;
+  current = keychain;
+  vi.resetModules();
+  return import('../src/keystore/index.native.js');
 }
 
 afterEach(() => {
-  // Always restore real module resolution between tests.
-  keystore.__setKeychainForTesting(null);
+  current = null;
   vi.unstubAllGlobals();
 });
 
