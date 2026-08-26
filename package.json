@@ -1,0 +1,89 @@
+{
+  "name": "@interglade/secure-crypto",
+  "version": "0.1.0",
+  "description": "Universal encryption for React Native, browsers and Node. XChaCha20-Poly1305 and AES-256-GCM with a versioned, self-describing envelope format.",
+  "keywords": [
+    "encryption",
+    "decryption",
+    "crypto",
+    "react-native",
+    "aes",
+    "aes-gcm",
+    "xchacha20",
+    "chacha20-poly1305",
+    "aead",
+    "pbkdf2",
+    "scrypt",
+    "universal",
+    "isomorphic",
+    "typescript"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/admin-interglade/secure-crypto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/admin-interglade/secure-crypto/issues"
+  },
+  "homepage": "https://github.com/admin-interglade/secure-crypto#readme",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "react-native": "./dist/index.cjs",
+  "exports": {
+    ".": {
+      "react-native": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "browser": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.scripts.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "vectors": "tsx scripts/generate-vectors.ts",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@noble/ciphers": "^2.3.0",
+    "@noble/hashes": "^2.3.0",
+    "@types/node": "^26.3.0",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.12",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.9"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
