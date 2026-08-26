@@ -72,7 +72,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "vectors": "tsx scripts/generate-vectors.ts",
-    "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build",
+    "example:sync": "node -e \"require('fs').copyFileSync('test/vectors.json','examples/react-native-verify/vectors.json')\""
   },
   "devDependencies": {
     "@noble/ciphers": "^2.3.0",
