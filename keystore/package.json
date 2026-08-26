@@ -1,0 +1,10 @@
+{
+  "//": "Legacy subpath shim. Resolvers that understand the exports map never read this file; older Metro and TypeScript moduleResolution:node do, which keeps '@interglade/secure-crypto/keystore' working in older React Native projects.",
+  "name": "@interglade/secure-crypto-keystore",
+  "private": true,
+  "main": "../dist/keystore/index.cjs",
+  "module": "../dist/keystore/index.js",
+  "react-native": "../dist/keystore/index.native.cjs",
+  "types": "../dist/keystore/index.d.ts",
+  "sideEffects": false
+}

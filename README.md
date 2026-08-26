@@ -187,6 +187,56 @@ The version byte is the compatibility guarantee: **`decrypt()` will always read 
 
 ---
 
+## Key storage
+
+```ts
+import { getOrCreateKey, setKey, getKey, deleteKey } from '@interglade/secure-crypto/keystore';
+```
+
+Same API on every platform, different mechanism underneath:
+
+| Platform | Backing store |
+|---|---|
+| React Native | iOS Keychain / Android Keystore via `react-native-keychain` (hardware-backed where available) |
+| Web | IndexedDB, wrapped under a **non-extractable** WebCrypto key |
+
+The usual pattern is one call — generate a device key on first launch, reuse it forever after:
+
+```ts
+const key = await getOrCreateKey('device-key');
+const envelope = await encrypt(secret, key);
+```
+
+```ts
+setKey(name, key, options?): Promise<void>
+getKey(name, options?): Promise<Uint8Array | null>
+hasKey(name, options?): Promise<boolean>
+deleteKey(name, options?): Promise<void>
+getOrCreateKey(name, options?): Promise<Uint8Array>
+isKeystoreAvailable(): boolean
+```
+
+Options: `namespace` (isolate one app's keys from another's), plus `requireAuthentication` and `authenticationPrompt` on React Native to gate reads behind biometrics or the device passcode.
+
+### React Native
+
+```bash
+npm install react-native-keychain
+cd ios && pod install && cd ..
+```
+
+It is an **optional** peer dependency — importing the keystore never crashes an app that does not use it, and `isKeystoreAvailable()` tells you whether the native module is linked. Keys are stored `WHEN_UNLOCKED_THIS_DEVICE_ONLY`, so they are unreadable while the device is locked and never migrate to a restored backup or a new device.
+
+### Web
+
+Nothing to install. On first use the browser generates an AES-GCM key with `extractable: false` — key material the browser will not hand back to JavaScript, not even to this library — and every stored key is encrypted under it. What lands on disk is ciphertext, so a stolen browser profile yields nothing usable.
+
+> **This does not stop XSS.** Script running on your origin can simply call `getKey()`. A Content Security Policy is what defends against that; the keystore defends against offline access to stored data.
+
+**Not for servers.** In Node there is no IndexedDB and the keystore throws with a pointer to the right answer: a KMS, a secrets manager, or an environment variable.
+
+---
+
 ## Security model
 
 **What this protects:** data at rest (databases, `AsyncStorage`, files, backups) and data in transit through systems you do not trust. An attacker with the ciphertext and no key learns nothing but its approximate length.

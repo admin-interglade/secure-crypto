@@ -55,10 +55,33 @@
         "default": "./dist/index.js"
       }
     },
+    "./keystore": {
+      "react-native": {
+        "types": "./dist/keystore/index.native.d.cts",
+        "default": "./dist/keystore/index.native.cjs"
+      },
+      "browser": {
+        "types": "./dist/keystore/index.d.ts",
+        "default": "./dist/keystore/index.js"
+      },
+      "import": {
+        "types": "./dist/keystore/index.d.ts",
+        "default": "./dist/keystore/index.js"
+      },
+      "require": {
+        "types": "./dist/keystore/index.d.cts",
+        "default": "./dist/keystore/index.cjs"
+      },
+      "default": {
+        "types": "./dist/keystore/index.d.ts",
+        "default": "./dist/keystore/index.js"
+      }
+    },
     "./package.json": "./package.json"
   },
   "files": [
     "dist",
+    "keystore",
     "README.md",
     "LICENSE"
   ],
@@ -79,6 +102,7 @@
     "@noble/ciphers": "^2.3.0",
     "@noble/hashes": "^2.3.0",
     "@types/node": "^26.3.0",
+    "fake-indexeddb": "^6.2.5",
     "tsup": "^8.5.1",
     "tsx": "^4.23.12",
     "typescript": "^5.9.3",
@@ -86,5 +110,20 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependencies": {
+    "react-native-keychain": "*"
+  },
+  "peerDependenciesMeta": {
+    "react-native-keychain": {
+      "optional": true
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "keystore": [
+        "./dist/keystore/index.d.ts"
+      ]
+    }
   }
 }
