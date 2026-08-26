@@ -7,22 +7,19 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
-### Changed
-- **Breaking:** minimum supported Node is now 20. Node 18 reached end of life in
-  April 2025 and does not expose `globalThis.crypto` without a flag, so it could
-  never generate keys without one.
+## [0.1.0] - 2026-08-26
+
+Initial release. Requires Node 20 or newer.
+
+Verified end to end: the known-answer vectors in `test/vectors.json` produce
+byte-identical results under Node, and on a physical Android device via
+`examples/react-native-verify/`.
 
 ### Added
 - `@interglade/secure-crypto/keystore` — platform-backed key storage: the iOS
   Keychain / Android Keystore via `react-native-keychain`, and a non-extractable
   WebCrypto wrapping key in IndexedDB on the web.
 - On-device React Native verification screen under `examples/react-native-verify/`.
-
-## [0.1.0] - 2026-08-26
-
-Initial release.
-
-### Added
 - `encrypt` / `decrypt` with a 32-byte key.
 - `encryptWithPassword` / `decryptWithPassword` with a per-call random salt.
 - `deriveKey`, `generateKey`, `generateSalt`.
