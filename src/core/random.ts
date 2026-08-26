@@ -19,7 +19,7 @@ const SETUP_HINT =
   '  React Native: npm i react-native-get-random-values, then add\n' +
   "      import 'react-native-get-random-values';\n" +
   '    as the FIRST line of your index.js (above every other import).\n' +
-  '  Node: requires Node 19+ (or run with --experimental-global-webcrypto).\n' +
+  '  Node: requires Node 20+ (Node 18 needs --experimental-global-webcrypto).\n' +
   '  Browser: requires a secure context (https:// or localhost).';
 
 function getCryptoObject(): Crypto | undefined {
