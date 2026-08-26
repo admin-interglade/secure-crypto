@@ -12,8 +12,8 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 Initial release. Requires Node 20 or newer.
 
 Verified end to end: the known-answer vectors in `test/vectors.json` produce
-byte-identical results under Node, in the browser, and on physical Android and
-iOS devices via `examples/react-native-verify/`.
+byte-identical results under Node and on physical Android and iOS devices via
+`examples/react-native-verify/`.
 
 ### Added
 - `@interglade/secure-crypto/keystore` — platform-backed key storage: the iOS
