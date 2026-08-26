@@ -9,7 +9,7 @@ One encryption API for **React Native**, **the browser**, and **Node**. Same cod
 - 🔐 Authenticated encryption only — XChaCha20-Poly1305 (default) and AES-256-GCM
 - 📦 Self-contained — no native modules, no `pod install` for the crypto itself
 - 🧾 Versioned, self-describing envelope — `decrypt()` needs nothing but the key
-- 🧪 Cross-platform known-answer vectors, so "it works on web" means it works on Android
+- 🧪 Cross-platform known-answer vectors, verified on physical Android and iOS devices
 - 🟦 TypeScript types included
 - 🪶 Built on [@noble](https://github.com/paulmillr/noble-ciphers) — audited, zero-dependency primitives
 
